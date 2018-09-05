@@ -1,6 +1,7 @@
 package app.rstone.com.myapp8schedule;
 
 import android.content.Context;
+import android.icu.text.SimpleDateFormat;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import java.util.Date;
 
 public class Main extends AppCompatActivity {
     String date;
@@ -28,7 +31,7 @@ public class Main extends AppCompatActivity {
         TextView minute =findViewById(R.id.minute);
         calendar.setVisibility(View.VISIBLE);
         time.setVisibility(View.INVISIBLE);
-
+        today.setText(new SimpleDateFormat("yyyy-MM-dd-hh:mm").format(new Date()));
         findViewById(R.id.btnEnd).setOnClickListener(
                 (View v)->{
                  year.setText(String.valueOf(date.split("/")[0]));
