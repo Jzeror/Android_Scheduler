@@ -14,13 +14,14 @@ import android.widget.Toast;
 import java.util.Date;
 
 public class Main extends AppCompatActivity {
-    String date;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         Context ctx = Main.this;
+        class MyDate{
+           String year, month, day, hour, minute;
+        }
         TextView today = findViewById(R.id.today);
         CalendarView calendar =findViewById(R.id.calendar);
         TimePicker time = findViewById(R.id.time);
@@ -31,14 +32,17 @@ public class Main extends AppCompatActivity {
         TextView minute =findViewById(R.id.minute);
         calendar.setVisibility(View.VISIBLE);
         time.setVisibility(View.INVISIBLE);
+        final MyDate m= new MyDate();
         today.setText(new SimpleDateFormat("yyyy-MM-dd-hh:mm").format(new Date()));
         findViewById(R.id.btnEnd).setOnClickListener(
                 (View v)->{
-                 year.setText(String.valueOf(date.split("/")[0]));
-                  month.setText(String.valueOf(Integer.parseInt(date.split("/")[1])+1));
-                    day.setText(String.valueOf(date.split("/")[2]));
-                    hour.setText(String.valueOf(time.getHour()));
-                    minute.setText(String.valueOf(time.getMinute()));
+                    m.hour=time.getHour()+"";
+                    m.minute=time.getMinute()+"";
+                    year.setText(m.year);
+                    month.setText(m.month);
+                    day.setText(m.day);
+                    hour.setText(m.hour);
+                    minute.setText(m.minute);
                 }
         );
         findViewById(R.id.rdoCalendar).setOnClickListener(
@@ -56,7 +60,9 @@ public class Main extends AppCompatActivity {
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                    date = year+"/"+month+"/"+dayOfMonth;
+                   m.year=year+"";
+                   m.month=""+Integer.parseInt(month+"")+1;
+                   m.day=String.valueOf(dayOfMonth);
               }
         });
     }
